@@ -5,6 +5,7 @@ import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Projects from "./components/Projects";
 import Footer from "./components/Footer";
+import Services from "./components/Services";
 
 function App() {
   return (
@@ -12,11 +13,10 @@ function App() {
       <Navbar />
 
       <Hero />
-      {/* <TechStrip /> */}
+      <Services />
       {/* <Skills /> */}
-      {/* <Projects/> */}
       <Contact />
-      {/* <Footer /> */}
+      <Footer />
 
     </div>
   );
