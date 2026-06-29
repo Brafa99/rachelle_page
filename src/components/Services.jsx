@@ -11,6 +11,14 @@ import {
 
 function Services() {
 
+  const scrollTo = (id) => {
+
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: "smooth" });
+
+  };
+
   const { language } = useLanguage();
 
   const t = {
@@ -120,12 +128,7 @@ function Services() {
 
 <section
 id="services"
-className="
-relative
-overflow-hidden
-bg-[#0B0F14]
-py-24
-"
+className="relative overflow-hidden bg-[#0B0F14] min-h-screen pt-36 lg:pt-42"
 >
 
 {/* ================= BACKGROUND ================= */}
@@ -671,7 +674,7 @@ py-24
         </div>
 
         <motion.button
-
+          onClick={()=>scrollTo("contact")}
           whileHover={{scale:1.04}}
 
           whileTap={{scale:.98}}

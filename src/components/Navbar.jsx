@@ -32,24 +32,53 @@ function Navbar() {
 
   useEffect(() => {
 
-    const handleScroll = () => {
+  const handleScroll = () => {
 
-      setScrolled(window.scrollY > 30);
+    // Navbar oscuro
+    setScrolled(window.scrollY > 30);
 
-    };
+    // Scroll Spy
+    const sections = [
+      "home",
+      "about",
+      "services",
+      "certifications",
+      "contact",
+    ];
 
-    window.addEventListener(
-      "scroll",
-      handleScroll
-    );
+    const scrollPosition = window.scrollY + window.innerHeight * 0.35;
 
-    return () =>
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
+    for (const id of sections) {
 
-  }, []);
+      const section = document.getElementById(id);
+
+      if (!section) continue;
+
+      const top = section.offsetTop;
+      const bottom = top + section.offsetHeight;
+
+      if (
+        scrollPosition >= top &&
+        scrollPosition < bottom
+      ) {
+        setActive(id);
+        break;
+      }
+
+    }
+
+  };
+
+  window.addEventListener("scroll", handleScroll, {
+    passive: true,
+  });
+
+  handleScroll();
+
+  return () =>
+    window.removeEventListener("scroll", handleScroll);
+
+}, []);
 
   useEffect(() => {
 
@@ -64,13 +93,15 @@ function Navbar() {
 
   }, [menuOpen]);
 
+  
+
   const navigation = useMemo(() => ({
 
     es: [
       { id: "home", label: "Inicio" },
       { id: "about", label: "Sobre mí" },
       { id: "services", label: "Servicios" },
-      { id: "certifications", label: "Certificaciones" },
+      // { id: "certifications", label: "Certificaciones" },
       { id: "contact", label: "Contacto" },
     ],
 
@@ -78,7 +109,7 @@ function Navbar() {
       { id: "home", label: "Home" },
       { id: "about", label: "About" },
       { id: "services", label: "Services" },
-      { id: "certifications", label: "Certifications" },
+      // { id: "certifications", label: "Certifications" },
       { id: "contact", label: "Contact" },
     ],
 
@@ -86,7 +117,7 @@ function Navbar() {
       { id: "home", label: "Accueil" },
       { id: "about", label: "À propos" },
       { id: "services", label: "Services" },
-      { id: "certifications", label: "Certifications" },
+      // { id: "certifications", label: "Certifications" },
       { id: "contact", label: "Contact" },
     ],
 
@@ -117,14 +148,14 @@ function Navbar() {
       <motion.header
         initial={{ y: -80 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: .35 }}
         className={`
           fixed
           top-0
           left-0
           w-full
           z-50
-          transition-all
+          transition-transform
           duration-500
 
           ${
@@ -201,7 +232,7 @@ function Navbar() {
                     className={`
                       text-[15px]
                       font-medium
-                      transition-all
+                      transition-transform
                       duration-300
 
                       ${
@@ -224,7 +255,7 @@ function Navbar() {
                       h-[2px]
                       rounded-full
                       bg-[#D4AF37]
-                      transition-all
+                      transition-transform
                       duration-300
 
                       ${
@@ -265,7 +296,7 @@ function Navbar() {
                     bg-white/5
                     backdrop-blur-xl
                     hover:border-[#D4AF37]/50
-                    transition-all
+                    transition-transform
                   "
                 >
 
@@ -346,7 +377,7 @@ function Navbar() {
                             items-center
                             gap-4
                             text-left
-                            transition-all
+                            transition-transform
 
                             ${
                               language === item.code
@@ -383,6 +414,7 @@ function Navbar() {
               {/* CTA */}
 
               <motion.button
+                onClick={()=>scrollTo("contact")}
                 whileHover={{
                   scale: 1.03,
                 }}
@@ -400,7 +432,7 @@ function Navbar() {
                   to-[#F3D57A]
                   shadow-[0_0_35px_rgba(212,175,55,.25)]
                   hover:shadow-[0_0_45px_rgba(212,175,55,.45)]
-                  transition-all
+                  transition-transform
                 "
               >
 
@@ -417,28 +449,33 @@ function Navbar() {
             {/* ================= MOBILE BUTTON ================= */}
 
             <button
-              onClick={() => setMenuOpen(true)}
-              className="
-                lg:hidden
-                w-12
-                h-12
-                rounded-full
-                border
-                border-white/10
-                bg-white/5
-                backdrop-blur-xl
-                flex
-                items-center
-                justify-center
-                text-white
-                hover:border-[#D4AF37]
-                transition-all
-              "
-            >
+  onClick={() => setMenuOpen(prev => !prev)}
+  className="
+    lg:hidden
+    w-12
+    h-12
+    rounded-full
+    border
+    border-white/10
+    bg-white/5
+    backdrop-blur-xl
+    flex
+    items-center
+    justify-center
+    text-white
+    hover:border-[#D4AF37]
+    transition-all
+    duration-300
+  "
+>
 
-              <HiOutlineMenuAlt3 size={26} />
+  {menuOpen ? (
+    <HiX size={26} />
+  ) : (
+    <HiOutlineMenuAlt3 size={26} />
+  )}
 
-            </button>
+</button>
 
           </div>
 
@@ -446,185 +483,266 @@ function Navbar() {
 
       </motion.header>
     
-            <AnimatePresence>
+        <AnimatePresence mode="wait">
+
+{menuOpen && (
+
+<motion.div
+
+key="mobileMenu"
+
+initial={{ opacity:0, x:"100%" }}
+
+animate={{ opacity:1, x:0 }}
 
-        {menuOpen && (
+exit={{ opacity:0, x:"100%" }}
 
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ duration: 0.35 }}
-            className="fixed inset-0 z-40 bg-[#0B0F14] lg:hidden"
-          >
+transition={{
+  duration:.22,
+  ease:"easeOut"
+}}
 
-            {/* Background Effects */}
+className="
+fixed
+inset-0
+z-[60]
+lg:hidden
+bg-[#0B0F14]/85
+backdrop-blur-xl
+"
+>
 
-            <div className="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-[#D4AF37]/10 blur-[120px]" />
+  <button
+  onClick={() => setMenuOpen(false)}
+  className="
+    absolute
+    top-6
+    right-6
+    w-12
+    h-12
+    rounded-full
+    border
+    border-white/10
+    bg-white/5
+    backdrop-blur-xl
+    flex
+    items-center
+    justify-center
+    text-white
+    hover:border-[#D4AF37]
+    transition-all
+    z-20
+  "
+>
+  <HiX size={26} />
+</button>
 
-            <div className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-[#2F6DB5]/15 blur-[120px]" />
 
-            <div className="relative h-full flex flex-col justify-between pt-28 pb-10 px-8">
+{/* Glow superior */}
 
-              {/* TOP */}
 
-              <div>
 
-                {/* <div className="mb-14">
+{/* Glow inferior */}
 
-                  <h2 className="text-3xl font-black text-white">
 
-                    Rachelle
+{/* Botón cerrar */}
 
-                  </h2>
+<button
 
-                  <h3 className="text-xl font-semibold text-[#D4AF37] mt-1">
+onClick={()=>setMenuOpen(false)}
 
-                    P. Arnoux
+className="
+absolute
+top-7
+right-6
+w-11
+h-11
+rounded-full
+bg-white/5
+border
+border-white/10
+flex
+items-center
+justify-center
+text-white
+"
 
-                  </h3>
+>
 
-                  <p className="uppercase tracking-[5px] text-xs text-slate-500 mt-3">
+<HiX size={26}/>
 
-                    French • English Language Coach
+</button>
 
-                  </p>
+<div
+className="
+relative
+h-full
+flex
+flex-col
+justify-between
+pt-28
+pb-10
+px-8
+"
+>
 
-                </div> */}
+{/* LINKS */}
 
-                <div className="flex flex-col gap-8">
+<div className="space-y-7">
 
-                  {navLinks.map((item) => (
+{navLinks.map(item=>(
 
-                    <button
-                      key={item.id}
-                      onClick={() => scrollTo(item.id)}
-                      className={`
-                        text-left
-                        text-2xl
-                        font-semibold
-                        transition-all
+<button
 
-                        ${
-                          active === item.id
-                            ? "text-[#D4AF37]"
-                            : "text-slate-300 hover:text-white"
-                        }
-                      `}
-                    >
+key={item.id}
 
-                      {item.label}
+onClick={()=>scrollTo(item.id)}
 
-                    </button>
+className={`
+block
+w-full
+text-left
+text-[30px]
+font-semibold
+transition-colors
 
-                  ))}
+${
+active===item.id
 
-                </div>
+?
 
-              </div>
+"text-[#D4AF37]"
 
-              {/* BOTTOM */}
+:
 
-              <div>
+"text-white"
+}
+`}
 
-                {/* <p className="uppercase tracking-[4px] text-xs text-slate-500 mb-4">
+>
 
-                  Language
+{item.label}
 
-                </p> */}
+</button>
 
-                <div className="grid grid-cols-3 gap-3 mb-8">
+))}
 
-                  {languages.map((item) => (
+</div>
 
-                    <button
-                      key={item.code}
-                      onClick={() => setLanguage(item.code)}
-                      className={`
-                        rounded-xl
-                        py-3
-                        border
-                        transition-all
+{/* Bottom */}
 
-                        ${
-                          language === item.code
-                            ? "bg-[#D4AF37] text-black border-[#D4AF37]"
-                            : "border-white/10 bg-white/5 text-white"
-                        }
-                      `}
-                    >
+<div>
 
-                      <div className="text-xl">
+<div className="grid grid-cols-3 gap-3">
 
-                        {item.flag}
+{languages.map(item=>(
 
-                      </div>
+<button
 
-                      <div className="text-xs mt-1">
+key={item.code}
 
-                        {item.short}
+onClick={()=>{
 
-                      </div>
+setLanguage(item.code);
 
-                    </button>
+}}
 
-                  ))}
+className={`
+rounded-2xl
+py-3
+border
 
-                </div>
+${
+language===item.code
 
-                <motion.button
+?
 
-                  whileHover={{ scale: 1.02 }}
+"bg-[#D4AF37] text-black border-[#D4AF37]"
 
-                  whileTap={{ scale: .98 }}
+:
 
-                  className="
-                    w-full
-                    rounded-2xl
-                    py-4
-                    font-semibold
-                    text-black
-                    bg-gradient-to-r
-                    from-[#D4AF37]
-                    to-[#F3D57A]
-                    shadow-[0_0_30px_rgba(212,175,55,.35)]
-                  "
+"bg-white/5 border-white/10 text-white"
 
-                >
+}
+`}
 
-                  {language === "es"
-                    ? "Reservar una Clase"
-                    : language === "en"
-                    ? "Book a Lesson"
-                    : "Réserver un cours"}
+>
 
-                </motion.button>
+<div className="text-xl">
 
-                <div className="mt-10 border-t border-white/10 pt-8">
+{item.flag}
 
-                  <p className="text-center text-slate-400 text-sm">
+</div>
 
-                    French • English
+<div className="text-xs mt-1">
 
-                  </p>
+{item.short}
 
-                  <p className="text-center text-slate-500 text-xs mt-3">
+</div>
 
-                    Premium Language Coaching
+</button>
 
-                  </p>
+))}
 
-                </div>
+</div>
 
-              </div>
+<button
 
-            </div>
+onClick={()=>{
+scrollTo("contact");
+}}
 
-          </motion.div>
+className="
+mt-8
+w-full
+rounded-full
+py-4
+font-semibold
+text-black
+bg-gradient-to-r
+from-[#D4AF37]
+to-[#FFE28A]
+"
 
-        )}
+>
 
-      </AnimatePresence>
+{language==="es"
+
+? "Reservar una Clase"
+
+:language==="en"
+
+? "Book a Lesson"
+
+:"Réserver un cours"}
+
+</button>
+
+<div className="mt-8 pt-6 border-t border-white/10">
+
+<p className="text-center text-slate-400">
+
+French • English
+
+</p>
+
+<p className="text-center text-xs text-slate-500 mt-2">
+
+Premium Language Coaching
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</motion.div>
+
+)}
+
+</AnimatePresence>
 
     </>
 

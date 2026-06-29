@@ -402,23 +402,55 @@ className="w-[420px] lg:w-[470px] h-[620px] object-cover"
 
 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent" />
 
-<div className="absolute bottom-0 left-0 w-full p-8">
+<div
+  className="
+    absolute
+    bottom-0
+    left-0
+    w-full
+    p-5
+    sm:p-7
+    lg:p-8
+  "
+>
 
-{/* <div className="inline-flex rounded-full bg-black/40 backdrop-blur-xl px-4 py-2 border border-[#D4AF37]/30">
 
-<span className="text-[#D4AF37] text-xs tracking-[3px] uppercase">
+  <h2
+    className="
+      mt-3
+      text-[28px]
+      sm:text-[34px]
+      lg:text-[46px]
+      font-black
+      leading-[1.05]
+      tracking-[-0.02em]
+      text-[#0C0C0C]
+      drop-shadow-[0_2px_8px_rgba(255,255,255,.25)]
+    "
+  >
+    <span className="block">
+      Rachelle
+    </span>
 
-{t.coach}
+    <span className="block">
+      Pasteur Arnoux
+    </span>
+  </h2>
 
-</span>
-
-</div> */}
-
-<h2 className="mt-5 text-4xl font-black leading-tight text-[#1A1A1A] drop-shadow-[0_2px_6px_rgba(255,255,255,.25)]">
-  Rachelle Pasteur Arnoux
-</h2>
-
-<div className="mt-4 w-20 h-[2px] bg-gradient-to-r from-[#D4AF37] to-transparent" />
+<div
+    className="
+      mt-4
+      w-16
+      sm:w-20
+      lg:w-24
+      h-[2px]
+      rounded-full
+      bg-gradient-to-r
+      from-[#D4AF37]
+      via-[#FFE28A]
+      to-transparent
+    "
+  />
 
 <p className="mt-5 text-slate-300">
 

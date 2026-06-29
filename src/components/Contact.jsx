@@ -253,12 +253,7 @@ return (
 
 <section
   id="contact"
-  className="
-    relative
-    overflow-hidden
-    bg-[#0B0F14]
-    py-24
-  "
+className="relative overflow-hidden bg-[#0B0F14] min-h-screen pt-36 lg:pt-42"
 >
 
 {/* ================= BACKGROUND ================= */}
