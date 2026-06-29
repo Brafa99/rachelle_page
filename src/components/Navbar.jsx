@@ -553,10 +553,10 @@ onClick={()=>setMenuOpen(false)}
 
 className="
 absolute
-top-5
+top-7
 right-6
-w-9
-h-9
+w-11
+h-11
 rounded-full
 bg-white/5
 border
@@ -580,9 +580,9 @@ h-full
 flex
 flex-col
 justify-between
-pt-8
-pb-6
-px-2
+pt-10
+pb-8
+px-4
 "
 >
 
