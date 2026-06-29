@@ -553,10 +553,10 @@ onClick={()=>setMenuOpen(false)}
 
 className="
 absolute
-top-7
+top-5
 right-6
-w-11
-h-11
+w-9
+h-9
 rounded-full
 bg-white/5
 border
@@ -580,9 +580,9 @@ h-full
 flex
 flex-col
 justify-between
-pt-28
-pb-10
-px-8
+pt-8
+pb-6
+px-2
 "
 >
 
@@ -602,7 +602,7 @@ className={`
 block
 w-full
 text-left
-text-[30px]
+text-[24px]
 font-semibold
 transition-colors
 
@@ -696,7 +696,7 @@ className="
 mt-8
 w-full
 rounded-full
-py-4
+py-2
 font-semibold
 text-black
 bg-gradient-to-r
@@ -722,13 +722,29 @@ to-[#FFE28A]
 
 <p className="text-center text-slate-400">
 
-French • English
+{language==="es"
 
+? "Francés • Inglés"
+
+:language==="en"
+
+? "French • English"
+
+:"Français • Anglais"}
 </p>
 
 <p className="text-center text-xs text-slate-500 mt-2">
 
-Premium Language Coaching
+
+{language==="es"
+
+? "Enseñanza Profesional de idiomas"
+
+:language==="en"
+
+? "French • English"
+
+:"Enseignement des langues"}
 
 </p>
 
