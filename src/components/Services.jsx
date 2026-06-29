@@ -565,7 +565,7 @@ className="relative overflow-hidden bg-[#0B0F14] min-h-screen pt-36 lg:pt-42"
       rounded-[34px]
       border
       border-white/10
-      bg-[#131922]
+
       backdrop-blur-xl
       p-8
       transition-all

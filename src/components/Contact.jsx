@@ -446,7 +446,7 @@ viewport={{once:true}}
 transition={{delay:.15}}
 
 className="
-mt-20
+mt-10
 rounded-[34px]
 overflow-hidden
 border
@@ -613,7 +613,7 @@ text-2xl
 
 <div
   className="
-    mt-20
+    mt-10
     gap-10
 
   "
@@ -638,12 +638,13 @@ relative
 rounded-[38px]
 border
 border-white/10
-bg-[#131922]
+
 backdrop-blur-xl
 overflow-hidden
 "
 
 >
+
 
 <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 via-transparent to-[#2C6BED]/5"/>
 

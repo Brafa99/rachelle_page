@@ -168,6 +168,7 @@ border-white/10
 
 </div>
 
+
 <div
 className="
 relative
@@ -563,8 +564,8 @@ font-black
 tracking-[4px]
 bg-gradient-to-r
 from-[#D4AF37]
-via-[#FFF4C8]
-to-[#2C6BED]
+
+to-[#D4AF37]
 bg-clip-text
 text-center
 text-transparent
@@ -583,7 +584,7 @@ mt-1
 text-[10px]
 tracking-[3px]
 uppercase
-text-slate-500
+text-slate-300
 text-center
 "
 >
